@@ -52,7 +52,7 @@ class MyHashMap_superiorSolution:
                 return
             head = head.next
         
-        head.next = Node(key, value)
+        head.next = Node(key, value) # I truly dislike how the outermost Node layers are just container shells. But I cannot think of an elegant way to get rid of it...
         
 
     def get(self, key: int) -> int:
