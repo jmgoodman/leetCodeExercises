@@ -39,3 +39,22 @@ class Solution:
             sublen += 1
             
         return res # still way too slow
+
+# brute-force solution which is just as slow...
+class SolutionBad:
+    def longestPalindrome(self, s: str) -> str:
+        hashmap = dict()
+        res     = ""
+        itercount = 0
+        
+        # brute force:
+        for left in range(len(s)):
+            for right in range(left,len(s)):
+                itercount += 1
+                substring = s[left:(right+1)]
+                if substring == substring[::-1] and len(substring) > len(res): # is this string comparison implicitly a hash table lookup???
+                    res = substring
+        
+        print(itercount)
+        return res
+                    
