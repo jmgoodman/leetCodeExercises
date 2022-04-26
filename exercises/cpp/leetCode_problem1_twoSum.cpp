@@ -31,7 +31,6 @@ public:
     }
 };
 
-
 /* a simpler solution:
 class Solution {
 public:

@@ -40,7 +40,7 @@ class Solution:
             
         return res # still way too slow
 
-# brute-force solution which is just as slow...
+# brute-force solution which is just as slow (as opposed to an order of magnitude slower??? what is going ON???)...
 class SolutionBad:
     def longestPalindrome(self, s: str) -> str:
         hashmap = dict()
@@ -58,3 +58,4 @@ class SolutionBad:
         print(itercount)
         return res
                     
+# see, y'all TELL me to do dynamic programming... but in the end I probably need to use the special O(n) algo that y'all tell me I do NOT need to know, no?
