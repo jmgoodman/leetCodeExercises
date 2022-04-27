@@ -1,4 +1,4 @@
-class Solution:
+class SolutionDynamicProgramming:
     def longestPalindrome(self, s: str) -> str:
         hashmap = dict()
         res     = ""
@@ -41,7 +41,7 @@ class Solution:
         return res # still way too slow
 
 # brute-force solution which is just as slow (as opposed to an order of magnitude slower??? what is going ON???)...
-class SolutionBad:
+class SolutionBruteForce:
     def longestPalindrome(self, s: str) -> str:
         hashmap = dict()
         res     = ""
@@ -59,3 +59,85 @@ class SolutionBad:
         return res
                     
 # see, y'all TELL me to do dynamic programming... but in the end I probably need to use the special O(n) algo that y'all tell me I do NOT need to know, no?
+
+class SolutionRadiate:
+    def longestPalindrome(self, s: str) -> str:
+        if len(s) <= 1:
+            return s
+        
+        # radiate-from-center
+        currentLength    = 1
+        currentSubstring = s[0]
+        
+        # iterate thru odds
+        for center in range(1,(len(s)-1)):
+            # seed with new central substring
+            newLength = currentLength + 2
+            winglen   = newLength // 2
+            left      = center-winglen
+            right     = center+1+winglen
+            
+            if right > len(s):
+                break
+            
+            substring = s[ left:right ]
+            
+            if substring == substring[::-1]:
+                currentLength   += 2
+                currentSubstring = substring
+            else:
+                continue
+            
+            # radiate
+            left  -= 1
+            right += 1
+            while left >= 0 and right <= len(s):
+                if s[left] == s[right-1]:
+                    currentLength += 2
+                    substring        = s[left]+substring+s[right-1]
+                    currentSubstring = substring
+                    left  -= 1
+                    right += 1
+                else:
+                    break
+                    
+        # iterate thru evens
+        currentLength -= 1
+        newLength      = currentLength + 2
+        winglen        = newLength // 2
+        print(s,(winglen-1),(len(s)-winglen))
+        for leftcenter in range( (winglen-1),(len(s)-winglen) ):
+            newLength = currentLength + 2
+            winglen   = newLength // 2
+            left      = (leftcenter+1) - winglen
+            right     = (leftcenter+1) + winglen
+            
+            if right > len(s):
+                break
+            
+            substring = s[ left:right ]
+            
+            if substring == substring[::-1]:
+                currentLength += 2
+                currentSubstring = substring
+            else:
+                continue
+            
+            # radiate
+            left  -= 1
+            right += 1
+            
+            while left >= 0 and right <= len(s):
+                if s[left] == s[right-1]:
+                    currentLength   += 2
+                    substring        = s[left]+substring+s[right-1]
+                    currentSubstring = substring 
+                    left  -= 1
+                    right += 1
+                else:
+                    break
+                    
+        return currentSubstring
+
+# okay but why did my dynamic programming solution fail so hard?
+# I have to assume it has to do with hash table collisions...
