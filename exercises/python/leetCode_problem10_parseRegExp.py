@@ -13,7 +13,7 @@ class State:
             # if the pattern is exhausted but the text is not, it must be a nonmatch
             # if the text is exhausted but the pattern is not, WAIT: the pattern could have stars and therefore elements that can be ignored while still yielding a match!
             if j == len(self.pattern):
-                return i == len(self.text)
+                return i == len(self.text) # this branch prevents infinite recursion
             else:
                 # make sure there's more text left to evaluate
                 # otherwise, evaluate to false
