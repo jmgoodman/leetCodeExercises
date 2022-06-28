@@ -14,7 +14,7 @@ class minHeap(list):
 		# get the new len
 		n = len(self)
 
-		# traverse the tree, swapping as needed
+		# ascend the tree, swapping as needed
 		while n > 1:
 			ndeeper = n
 			n //= 2
@@ -31,7 +31,7 @@ class minHeap(list):
 		# move last val to root
 		self[:]   = self[-1:] + self[:-1]
 
-		# swaps
+		# descend & swap
 		parentnode = 0
 		while True:
 			parentval  = self[parentnode]
