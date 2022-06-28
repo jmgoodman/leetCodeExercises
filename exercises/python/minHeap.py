@@ -32,7 +32,7 @@ class minHeap(list):
 		self[:]   = self[-1:] + self[:-1]
 
 		# swaps
-		parentnode  = 0
+		parentnode = 0
 		while True:
 			parentval  = self[parentnode]
 			childnodes = [2*(parentnode+1)-1,2*(parentnode+1)]
