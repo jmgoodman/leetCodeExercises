@@ -44,6 +44,11 @@ class Solution_nonCheating:
         prenode = res
         
         # what is going on here??? gonna need to diagram this...
+        # okay, if you think about a graph of linked pointers
+        # where all pure-name assignments establish aliases of these pointers
+        # and all .next assignments establish new links between pointers
+        # things start to make a lot more sense...
+        # in other words, pure-name assignments move aliases around, and .next assignments move arrows around
         while head and head.next:
             first = head
             second = head.next
