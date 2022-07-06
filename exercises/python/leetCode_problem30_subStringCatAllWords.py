@@ -57,6 +57,7 @@ class Solution_slow:
         return res
 		
 # sliding window solution
+# leverages the fact that all the words are the same size
 class Solution:
     def findSubstring(self, s: str, words: List[str]) -> List[int]:
         wlen   = len( words[0] )
