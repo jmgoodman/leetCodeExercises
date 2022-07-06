@@ -1,4 +1,4 @@
-class Solution:
+class Solution_slow:
     def findSubstring(self, s: str, words: List[str]) -> List[int]:
         # step 0: convert the words list into a dict
         wordsDict = dict()
@@ -55,4 +55,67 @@ class Solution:
             
                 
         return res
+		
+# sliding window solution
+class Solution:
+    def findSubstring(self, s: str, words: List[str]) -> List[int]:
+        wlen   = len( words[0] )
+        wcount = len(words)
+        
+        # make a dict
+        wdict = dict()
+        for w in words:
+            if w in wdict:
+                wdict[w] += 1
+            else:
+                wdict[w] = 1
+        
+        windowlen = wlen * wcount
+        res = []
+        """print(wdict)"""
+        
+        for left in range(wlen):
+            currentleft = left
+            while currentleft <= (len(s)-windowlen):
+                """print('currentleft',currentleft,'endleft',len(s)-windowlen)
+                print('res',res)"""
+                tempdict = dict()
+                for w in wdict:
+                    tempdict[w] = wdict[w]
+                lastlocs = dict()
+                right = currentleft+wlen
+                while right <= (currentleft + windowlen):
+                    cword = s[(right-wlen):right]
+                    """print(' ')
+                    print('---')
+                    print('tempdict',tempdict)
+                    print('cword',cword)
+                    print('lastlocs',lastlocs)"""
+                    if cword in tempdict:
+                        if tempdict[cword] > 0:
+                            tempdict[cword] -= 1
+                            if cword not in lastlocs:
+                                lastlocs[cword] = right
+                        else:
+                            """print('excess',tempdict)"""
+                            shiftleft = lastlocs[cword]
+                            break
+                    else:
+                        shiftleft = right
+                        break
+                    right+=wlen
+                
+                if right > (currentleft+windowlen):
+                    res.append(currentleft)
+                    shiftleft = currentleft+wlen
+                    
+                currentleft = shiftleft
+                """print(currentleft)
+                print(' ')
+                print('===')
+                print('===')"""
+                
+        return res
+                
+            
             
